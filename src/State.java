@@ -49,7 +49,7 @@ public class State {
 
         // Column win
         int column = lastY;
-        int rowCounter = 0
+        int rowCounter = 0;
         for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
             if (board[column][j].getContents() == lastSymbol) {
                 rowCounter ++;
