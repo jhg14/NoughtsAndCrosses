@@ -22,5 +22,15 @@ public class Cell {
 }
 
 enum Symbol {
-    X, O, EMPTY
+
+    X, O, EMPTY;
+
+    public Symbol getOpponent() {
+        if (this == Symbol.X) {
+            return Symbol.O;
+        } else {
+            return Symbol.X;
+        }
+    }
+
 }

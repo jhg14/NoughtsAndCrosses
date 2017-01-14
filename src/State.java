@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by JHGWhite on 11/01/2017.
  */
@@ -8,14 +11,14 @@ public class State {
 
     public final Integer lastX;
     public final Integer lastY;
-    public final Symbol lastSymbol;
+    //public final Symbol lastSymbol;
 
     // Initialise a fresh state in which the board is empty
     public State() {
         board = new Cell[NoughtsAndCrosses.DIMENSION][NoughtsAndCrosses.DIMENSION];
         lastX = null;
         lastY = null;
-        lastSymbol = null;
+        //lastSymbol = null;
     }
 
     // Initialise a state from a previous state with one alteration
@@ -25,11 +28,36 @@ public class State {
         board = temp;
         lastX = i;
         lastY = j;
-        lastSymbol = turn;
+        //lastSymbol = turn;
+    }
+
+    public int emptyTileCount() {
+        int emptyTiles = 0;
+        for (Cell[] column : board) {
+            for (Cell tile: column) {
+                if (tile.getContents() == Symbol.EMPTY) {
+                    emptyTiles ++;
+                }
+            }
+        }
+        return emptyTiles;
+    }
+
+    public List<Coordinate> getEmptyTiles() {
+        List<Coordinate> emptyTiles = new ArrayList<>();
+
+        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+            for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
+                if (board[i][j].getContents() == Symbol.EMPTY) {
+                    emptyTiles.add(new Coordinate(i, j));
+                }
+            }
+        }
+        return emptyTiles;
     }
 
     // Private method to determine whether or not the board is full
-    private boolean gameIsOver() {
+    public boolean boardFilled() {
         for (Cell[] row : board) {
             for (Cell cell : row) {
                 if (cell.getContents() == Symbol.EMPTY)
@@ -45,48 +73,48 @@ public class State {
     // If friendly wins then 1
     // TODO: Improve, remove hardcoding
     // TODO: Return -1 or 1 based on global variable Turn which determines who's turn it is
-    public int getScore() {
-
-        // Column win
-        int column = lastY;
-        int rowCounter = 0;
-        for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
-            if (board[column][j].getContents() == lastSymbol) {
-                rowCounter ++;
-            }
-        }
-
-        if (rowCounter == NoughtsAndCrosses.DIMENSION)
-            return 1;
-
-        // Row win
-        int row = lastX;
-        int columnCounter = 0;
-        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
-            if (board[i][row].getContents() == lastSymbol) {
-                columnCounter ++;
-            }
-        }
-
-        if (columnCounter == NoughtsAndCrosses.DIMENSION)
-            return 1;
-
-        // Diagonal win
-        if (lastX == lastY) {
-            int diagCounter = 0;
-
-            for (int ij = 0; ij < NoughtsAndCrosses.DIMENSION; ij++) {
-                if (board[ij][ij].getContents() == lastSymbol)
-                    diagCounter ++;
-            }
-
-            if (diagCounter == NoughtsAndCrosses.DIMENSION)
-                return 1;
-        }
-
-        return 0;
-
-    }
+//    public int getScore() {
+//
+//        // Column win
+//        int column = lastY;
+//        int rowCounter = 0;
+//        for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
+//            if (board[column][j].getContents() == lastSymbol) {
+//                rowCounter ++;
+//            }
+//        }
+//
+//        if (rowCounter == NoughtsAndCrosses.DIMENSION)
+//            return 1;
+//
+//        // Row win
+//        int row = lastX;
+//        int columnCounter = 0;
+//        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+//            if (board[i][row].getContents() == lastSymbol) {
+//                columnCounter ++;
+//            }
+//        }
+//
+//        if (columnCounter == NoughtsAndCrosses.DIMENSION)
+//            return 1;
+//
+//        // Diagonal win
+//        if (lastX == lastY) {
+//            int diagCounter = 0;
+//
+//            for (int ij = 0; ij < NoughtsAndCrosses.DIMENSION; ij++) {
+//                if (board[ij][ij].getContents() == lastSymbol)
+//                    diagCounter ++;
+//            }
+//
+//            if (diagCounter == NoughtsAndCrosses.DIMENSION)
+//                return 1;
+//        }
+//
+//        return 0;
+//
+//    }
 
 
 
