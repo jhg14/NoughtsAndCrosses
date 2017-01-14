@@ -6,9 +6,9 @@ public class State {
 
     public final Cell[][] board;
 
-    private Integer lastX;
-    private Integer lastY;
-    private Symbol lastSymbol;
+    public final Integer lastX;
+    public final Integer lastY;
+    public final Symbol lastSymbol;
 
     // Initialise a fresh state in which the board is empty
     public State() {

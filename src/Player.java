@@ -3,6 +3,6 @@
  */
 public interface Player {
 
-    void play(State state);
+    State play(State state);
 
 }
