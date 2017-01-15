@@ -67,6 +67,22 @@ public class State {
         return true;
     }
 
+    @Override
+    public String toString() {
+
+        StringBuilder builder = new StringBuilder();
+
+        for (Cell[] column : board) {
+            for (Cell cell: column) {
+                Symbol contents = cell.getContents();
+                builder.append(contents == Symbol.EMPTY ? "_" : contents);
+                builder.append(" ");
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+
     // Returns the relative score of the board, for Minimax purposes
     // If no wins then 0,
     // If enemy wins then -1,

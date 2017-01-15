@@ -17,6 +17,7 @@ public class NoughtsAndCrosses {
         // Initialise first state
         State currentState = new State();
 
+        System.out.println(currentState);
 
 
     }
