@@ -19,8 +19,16 @@ public class UnbeatablePlayer implements Player {
         // else return next move as new state
 
         if (gameIsOver()) {
+            // Indicates that there is no move to be made
             return state;
         } else {
+
+            /*
+                Compile a list of possible moves, and apply minimax to each of them
+                to discover the respective scores.
+                At this stage, we know that we want to chose the highest scoring
+                possible move.
+             */
 
             List<State> possibleMoves = new ArrayList<>();
             List<Integer> scores = new ArrayList<>();
