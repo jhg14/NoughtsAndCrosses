@@ -12,6 +12,10 @@ public class UnbeatablePlayer implements Player {
     // State
     private Symbol symbol;
 
+    public UnbeatablePlayer(Symbol symbol) {
+        this.symbol = symbol;
+    }
+
     @Override
     public State play(State state) {
 
