@@ -4,13 +4,12 @@ import java.util.List;
 /**
  * Created by JHGWhite on 11/01/2017.
  */
-public class UnbeatablePlayer implements Player {
+public class UnbeatablePlayer extends Player {
 
     // This is the symbol that will be used
     // to determine whether a -1 or 1 should
     // be returned from the Minimax function in
     // State
-    private Symbol symbol;
 
     public UnbeatablePlayer(Symbol symbol) {
         this.symbol = symbol;

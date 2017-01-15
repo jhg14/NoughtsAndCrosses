@@ -11,12 +11,18 @@ public class Cell {
 
     // Set the contents of a cell, only if empty
     public void setContents(Symbol contents) {
-        if (contents == Symbol.EMPTY)
+        if (this.contents == Symbol.EMPTY)
             this.contents = contents;
     }
 
     public Symbol getContents() {
         return contents;
+    }
+
+    public Cell copy() {
+        Cell cell = new Cell();
+        cell.setContents(contents);
+        return cell;
     }
 
 }

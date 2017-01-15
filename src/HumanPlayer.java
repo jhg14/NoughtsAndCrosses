@@ -1,14 +1,10 @@
-import sun.jvm.hotspot.debugger.cdbg.Sym;
-
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * Created by JHGWhite on 11/01/2017.
  */
-public class HumanPlayer implements Player {
-
-    private Symbol symbol;
+public class HumanPlayer extends Player {
 
     private Scanner input;
 
@@ -37,10 +33,8 @@ public class HumanPlayer implements Player {
 
             for (Coordinate emptyTile : emptyTiles) {
                 if (emptyTile.equals(coord)) {
-                    valid = true;
 
                     State newState = new State(state, symbol, coord.i, coord.j);
-
                     return newState;
 
                 }

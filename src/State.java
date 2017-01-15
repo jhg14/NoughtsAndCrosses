@@ -16,6 +16,13 @@ public class State {
     // Initialise a fresh state in which the board is empty
     public State() {
         board = new Cell[NoughtsAndCrosses.DIMENSION][NoughtsAndCrosses.DIMENSION];
+
+        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+            for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
+                board[i][j] = new Cell();
+            }
+        }
+
         lastX = null;
         lastY = null;
         //lastSymbol = null;
@@ -23,7 +30,16 @@ public class State {
 
     // Initialise a state from a previous state with one alteration
     public State(State prev, Symbol turn, int i, int j) {
-        Cell[][] temp = prev.board.clone();
+        //Cell[][] temp = prev.board.clone();
+
+        Cell[][] temp = new Cell[NoughtsAndCrosses.DIMENSION][NoughtsAndCrosses.DIMENSION];
+
+        for (int k = 0; k < NoughtsAndCrosses.DIMENSION; k++) {
+            for (int l = 0; l < NoughtsAndCrosses.DIMENSION; l++) {
+                temp[k][l] = prev.board[k][l].copy();
+            }
+        }
+
         temp[i][j].setContents(turn);
         board = temp;
         lastX = i;
