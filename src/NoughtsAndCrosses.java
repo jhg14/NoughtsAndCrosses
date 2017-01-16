@@ -7,19 +7,12 @@ import java.util.Scanner;
  */
 public class NoughtsAndCrosses {
 
-    public static final int DIMENSION = 3;
+    public static final int DIMENSION = 5;
     public static final int NUMBER_OF_PLAYERS = 2;
 
     public static void main(String[] args) {
 
-        Player[] players = new Player[NUMBER_OF_PLAYERS];
-
-        Player human = new HumanPlayer(Symbol.X ,new Scanner(System.in));
-        Player human2 = new HumanPlayer(Symbol.O, new Scanner(System.in));
-        Player computer = new UnbeatablePlayer(Symbol.O);
-
-        players[0] = human;
-        players[1] = computer;
+        Player[] players = getPlayerConfiguration();
 
         // Initialise first state
         State currentState = new State();
@@ -29,31 +22,45 @@ public class NoughtsAndCrosses {
 
             for (Player player : players) {
 
-                System.out.println(currentState);
-
                 State newState = player.play(currentState);
 
-                if (newState.equals(currentState)) {
-                    // The game is over
-                    System.out.println("AThis game was a draw");
+                currentState = newState;
+                if (checkForWinner(player, currentState)) {
+                    System.out.println(currentState);
+                    System.out.println(player.symbol + " is the winner.");
                     winner = true;
                     break;
-                } else {
-                    currentState = newState;
-                    if (checkForWinner(player, currentState)) {
-                        System.out.println(currentState);
-                        System.out.println(player.symbol + " is the winner.");
-                        winner = true;
-                        break;
-                    } else if (currentState.boardFilled()) {
-                        System.out.println(currentState);
-                        System.out.println("This game was a draw");
-                        winner = true;
-                        break;
-                    }
+                } else if (currentState.boardFilled()) {
+                    System.out.println(currentState);
+                    System.out.println("This game was a draw");
+                    winner = true;
+                    break;
                 }
             }
         }
+    }
+
+    public static Player[] getPlayerConfiguration() {
+
+        Player[] configuration = new Player[NUMBER_OF_PLAYERS];
+        Symbol[] symbols = Symbol.values();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("How many human players? (0 - " + NUMBER_OF_PLAYERS + ")");
+        int humans;
+        do {
+            humans = scanner.nextInt();
+        } while (!(humans >= 0 && humans <= NUMBER_OF_PLAYERS));
+
+        for (int i = 0; i < humans; i++) {
+            configuration[i] = new HumanPlayer(symbols[i], new Scanner(System.in));
+        }
+
+        for (int i = humans; i < NUMBER_OF_PLAYERS; i++) {
+            configuration[i] = new UnbeatablePlayer(symbols[i]);
+        }
+
+        return configuration;
     }
 
     public static boolean checkForWinner(Player player, State state) {

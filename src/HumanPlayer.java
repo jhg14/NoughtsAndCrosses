@@ -17,10 +17,6 @@ public class HumanPlayer extends Player {
     @Override
     public State play(State state) {
 
-        // Return the same state if the game is over
-        if (state.boardFilled())
-            return state;
-
         boolean valid = false;
 
         while (!valid) {

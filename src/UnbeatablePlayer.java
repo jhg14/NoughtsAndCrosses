@@ -21,35 +21,28 @@ public class UnbeatablePlayer extends Player {
         // Return the same state if game is over,
         // else return next move as new state
 
-        if (gameIsOver()) {
-            // Indicates that there is no move to be made
-            return state;
-        } else {
+        /*
+            Compile a list of possible moves, and apply minimax to each of them
+            to discover the respective scores.
+            At this stage, we know that we want to chose the highest scoring
+            possible move.
+         */
 
-            /*
-                Compile a list of possible moves, and apply minimax to each of them
-                to discover the respective scores.
-                At this stage, we know that we want to chose the highest scoring
-                possible move.
-             */
+        List<State> possibleMoves = new ArrayList<>();
+        List<Integer> scores = new ArrayList<>();
 
-            List<State> possibleMoves = new ArrayList<>();
-            List<Integer> scores = new ArrayList<>();
+        List<Coordinate> possibleSymbolLocations = state.getEmptyTiles();
 
-            List<Coordinate> possibleSymbolLocations = state.getEmptyTiles();
+        possibleSymbolLocations.forEach(coordinate ->
+            possibleMoves.add(new State(state, symbol, coordinate.i, coordinate.j)));
 
-            possibleSymbolLocations.forEach(coordinate ->
-                possibleMoves.add(new State(state, symbol, coordinate.i, coordinate.j)));
+        possibleMoves.forEach(move -> {
+            scores.add(minimax(move, symbol.getOpponent()));
+        });
 
-            possibleMoves.forEach(move -> scores.add(minimax(move, symbol.getOpponent())));
-
-            return possibleMoves.get(getMaxIndex(scores));
-
-        }
+        return possibleMoves.get(getMaxIndex(scores));
 
     }
-
-    private boolean gameIsOver() { return false; }
 
     public int minimax(State state, Symbol toPlace) {
 
