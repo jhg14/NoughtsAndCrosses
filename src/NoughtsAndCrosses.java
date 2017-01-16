@@ -12,9 +12,30 @@ public class NoughtsAndCrosses {
 
     public static void main(String[] args) {
 
+        // Test
+
+        Cell[][] testBoard = {
+                { new Cell(Symbol.O), new Cell(Symbol.O),  new Cell()},
+                { new Cell(Symbol.X), new Cell(), new Cell()},
+                { new Cell(Symbol.X), new Cell(), new Cell()}
+        };
+
+        State currentState = new State(testBoard, 0, 1);
+
+
+
+        // Test
+
+
+
+
+
+
+
+
+
         Player[] players = new Player[NUMBER_OF_PLAYERS];
 
-//        Player computer = new UnbeatablePlayer();
         Player human = new HumanPlayer(Symbol.X ,new Scanner(System.in));
         Player human2 = new HumanPlayer(Symbol.O, new Scanner(System.in));
         Player computer = new UnbeatablePlayer(Symbol.O);
@@ -23,7 +44,7 @@ public class NoughtsAndCrosses {
         players[1] = computer;
 
         // Initialise first state
-        State currentState = new State();
+        //State currentState = new State();
 
         boolean winner = false;
         while (!winner) {

@@ -41,7 +41,7 @@ public class UnbeatablePlayer extends Player {
             possibleSymbolLocations.forEach(coordinate ->
                 possibleMoves.add(new State(state, symbol, coordinate.i, coordinate.j)));
 
-            possibleMoves.forEach(move -> scores.add(minimax(move, symbol)));
+            possibleMoves.forEach(move -> scores.add(minimax(move, symbol.getOpponent())));
 
             return possibleMoves.get(getMaxIndex(scores));
 
@@ -51,7 +51,7 @@ public class UnbeatablePlayer extends Player {
 
     private boolean gameIsOver() { return false; }
 
-    private int minimax(State state, Symbol toPlace) {
+    public int minimax(State state, Symbol toPlace) {
 
         /*
 
@@ -64,12 +64,17 @@ public class UnbeatablePlayer extends Player {
 
         Symbol lastPlaced = toPlace.getOpponent();
 
+        if (state.board[0][0].getContents() == Symbol.X
+                && state.board[0][1].getContents() == Symbol.X){
+            System.out.println("test");
+        }
+
 
         // Column win
         int column = state.lastY;
         int rowCounter = 0;
         for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
-            if (state.board[column][j].getContents() == lastPlaced) {
+            if (state.board[j][column].getContents() == lastPlaced) {
                 rowCounter ++;
             }
         }
@@ -81,7 +86,7 @@ public class UnbeatablePlayer extends Player {
         int row = state.lastX;
         int columnCounter = 0;
         for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
-            if (state.board[i][row].getContents() == lastPlaced) {
+            if (state.board[row][i].getContents() == lastPlaced) {
                 columnCounter ++;
             }
         }
@@ -119,7 +124,7 @@ public class UnbeatablePlayer extends Player {
         List<Coordinate> possibleSymbolLocations = state.getEmptyTiles();
 
         possibleSymbolLocations.forEach(coordinate ->
-                possibleMoves.add(new State(state, lastPlaced, coordinate.i, coordinate.j)));
+                possibleMoves.add(new State(state, toPlace, coordinate.i, coordinate.j)));
 
         possibleMoves.forEach(move -> scores.add(minimax(move, lastPlaced)));
 

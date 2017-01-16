@@ -28,6 +28,21 @@ public class State {
         //lastSymbol = null;
     }
 
+    // Create a state from a pre-made board
+    // Must specify what the last moves were
+    public State(Cell[][] board, int lastX, int lastY) {
+        this.board = new Cell[NoughtsAndCrosses.DIMENSION][NoughtsAndCrosses.DIMENSION];
+
+        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+            for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
+                this.board[i][j] = board[i][j].copy();
+            }
+        }
+
+        this.lastX = lastX;
+        this.lastY = lastY;
+    }
+
     // Initialise a state from a previous state with one alteration
     public State(State prev, Symbol turn, int i, int j) {
         //Cell[][] temp = prev.board.clone();

@@ -9,6 +9,10 @@ public class Cell {
         contents = Symbol.EMPTY;
     }
 
+    public Cell(Symbol contents) {
+        this.contents = contents;
+    }
+
     // Set the contents of a cell, only if empty
     public void setContents(Symbol contents) {
         if (this.contents == Symbol.EMPTY)
