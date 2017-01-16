@@ -128,7 +128,7 @@ public class UnbeatablePlayer extends Player {
 
         possibleMoves.forEach(move -> scores.add(minimax(move, lastPlaced)));
 
-        return lastPlaced == symbol ? scores.get(getMaxIndex(scores)) : scores.get(getMinIndex(scores));
+        return toPlace == symbol ? scores.get(getMaxIndex(scores)) : scores.get(getMinIndex(scores));
 
     }
 

@@ -12,22 +12,6 @@ public class NoughtsAndCrosses {
 
     public static void main(String[] args) {
 
-        // Test
-
-
-
-
-
-        // Test
-
-
-
-
-
-
-
-
-
         Player[] players = new Player[NUMBER_OF_PLAYERS];
 
         Player human = new HumanPlayer(Symbol.X ,new Scanner(System.in));
