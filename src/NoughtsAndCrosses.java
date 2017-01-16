@@ -14,13 +14,7 @@ public class NoughtsAndCrosses {
 
         // Test
 
-        Cell[][] testBoard = {
-                { new Cell(Symbol.O), new Cell(Symbol.O),  new Cell()},
-                { new Cell(Symbol.X), new Cell(), new Cell()},
-                { new Cell(Symbol.X), new Cell(), new Cell()}
-        };
 
-        State currentState = new State(testBoard, 0, 1);
 
 
 
@@ -44,7 +38,7 @@ public class NoughtsAndCrosses {
         players[1] = computer;
 
         // Initialise first state
-        //State currentState = new State();
+        State currentState = new State();
 
         boolean winner = false;
         while (!winner) {
