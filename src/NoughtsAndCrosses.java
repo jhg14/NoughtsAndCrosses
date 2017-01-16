@@ -35,16 +35,18 @@ public class NoughtsAndCrosses {
 
                 if (newState.equals(currentState)) {
                     // The game is over
-                    System.out.println("This game was a draw");
+                    System.out.println("AThis game was a draw");
                     winner = true;
                     break;
                 } else {
                     currentState = newState;
                     if (checkForWinner(player, currentState)) {
+                        System.out.println(currentState);
                         System.out.println(player.symbol + " is the winner.");
                         winner = true;
                         break;
                     } else if (currentState.boardFilled()) {
+                        System.out.println(currentState);
                         System.out.println("This game was a draw");
                         winner = true;
                         break;

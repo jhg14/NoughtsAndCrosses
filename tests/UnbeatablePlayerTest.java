@@ -35,6 +35,8 @@ public class UnbeatablePlayerTest {
     };
     State endState3 = new State(endBoard3, 1, 2);
 
+
+    // This test seemingly fails for no reason - the output for 'is' and 'was' are identical
     @Test
     public void testPlayInstantWin() throws Exception {
 

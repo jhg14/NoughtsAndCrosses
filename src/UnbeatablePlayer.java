@@ -64,12 +64,6 @@ public class UnbeatablePlayer extends Player {
 
         Symbol lastPlaced = toPlace.getOpponent();
 
-        if (state.board[0][0].getContents() == Symbol.X
-                && state.board[0][1].getContents() == Symbol.X){
-            System.out.println("test");
-        }
-
-
         // Column win
         int column = state.lastY;
         int rowCounter = 0;
