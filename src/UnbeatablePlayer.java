@@ -23,8 +23,8 @@ public class UnbeatablePlayer extends Player {
 
         /*
             Compile a list of possible moves, and apply minimax to each of them
-            to discover the respective scores.
-            At this stage, we know that we want to chose the highest scoring
+            to discover their respective scores.
+            For the first call, we know that we want to chose the highest scoring
             possible move.
          */
 
@@ -36,9 +36,13 @@ public class UnbeatablePlayer extends Player {
         possibleSymbolLocations.forEach(coordinate ->
             possibleMoves.add(new State(state, symbol, coordinate.i, coordinate.j)));
 
-        possibleMoves.forEach(move -> {
-            scores.add(minimax(move, symbol.getOpponent()));
-        });
+        for (State move: possibleMoves) {
+            int value = minimax(move, symbol.getOpponent());
+            if (value == 1) {
+                return move;
+            }
+            scores.add(value);
+        }
 
         return possibleMoves.get(getMaxIndex(scores));
 
@@ -65,7 +69,6 @@ public class UnbeatablePlayer extends Player {
                 rowCounter ++;
             }
         }
-
         if (rowCounter == NoughtsAndCrosses.DIMENSION)
             return lastPlaced == symbol ? 1 : -1;
 
@@ -77,7 +80,6 @@ public class UnbeatablePlayer extends Player {
                 columnCounter ++;
             }
         }
-
         if (columnCounter == NoughtsAndCrosses.DIMENSION)
             return lastPlaced == symbol ? 1 : -1;
 
@@ -95,31 +97,45 @@ public class UnbeatablePlayer extends Player {
         }
 
         // Draw
-
         if (state.boardFilled())
             return 0;
 
 
-
-        // Recurse with minimax
-
-        // if toPlace = symbol then you want max otherwise min
-
+        // Create a list of all possible next states
         List<State> possibleMoves = new ArrayList<>();
-        List<Integer> scores = new ArrayList<>();
 
+        // Create a list of possible tiles for a symbol to be placed in
         List<Coordinate> possibleSymbolLocations = state.getEmptyTiles();
 
+        // Create a list of scores corresponding to each move
+        List<Integer> scores = new ArrayList<>();
+
+        // Populate the state list with new states for each available tile
         possibleSymbolLocations.forEach(coordinate ->
                 possibleMoves.add(new State(state, toPlace, coordinate.i, coordinate.j)));
 
-        possibleMoves.forEach(move -> scores.add(minimax(move, lastPlaced)));
+        // Run minimax on each possible next state
+        // Depending on whose turn it is, the minimum or maximum score
+        // is returned
+        // Optimised to short circuit
+        for (State move: possibleMoves) {
+            int value = minimax(move, lastPlaced);
 
+            if (value == 1 && toPlace == symbol) {
+                return 1;
+            } else if (value == -1 && toPlace == symbol.getOpponent()) {
+                return -1;
+            }
+            scores.add(value);
+        }
+
+        // If the next symbol to be placed was the player's symbol, return the max score,
+        // otherwise minimise the opponent's score
         return toPlace == symbol ? scores.get(getMaxIndex(scores)) : scores.get(getMinIndex(scores));
-
     }
 
 
+    // Utility function: returns the index of the first maximum element in a list
     private int getMaxIndex(List<Integer> list) {
         int max = -2;
         int maxIndex = -1;
@@ -133,6 +149,7 @@ public class UnbeatablePlayer extends Player {
         return maxIndex;
     }
 
+    // Utility function: returns the index of the first minimum element in a list
     private int getMinIndex(List<Integer> list) {
 
         int min = 2;
@@ -146,7 +163,4 @@ public class UnbeatablePlayer extends Player {
         }
         return minIndex;
     }
-
-
-
 }

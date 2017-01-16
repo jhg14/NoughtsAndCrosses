@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class NoughtsAndCrosses {
 
-    public static final int DIMENSION = 5;
+    public static final int DIMENSION = 3;
     public static final int NUMBER_OF_PLAYERS = 2;
 
     public static void main(String[] args) {
@@ -21,6 +21,8 @@ public class NoughtsAndCrosses {
         while (!winner) {
 
             for (Player player : players) {
+
+                System.out.println(currentState);
 
                 State newState = player.play(currentState);
 
