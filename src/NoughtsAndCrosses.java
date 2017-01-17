@@ -1,5 +1,3 @@
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
-
 import java.util.Scanner;
 
 /**
@@ -27,7 +25,7 @@ public class NoughtsAndCrosses {
                 State newState = player.play(currentState);
 
                 currentState = newState;
-                if (checkForWinner(player, currentState)) {
+                if (currentState.checkForWinner(player.symbol)) {
                     System.out.println(currentState);
                     System.out.println(player.symbol + " is the winner.");
                     winner = true;
@@ -64,51 +62,4 @@ public class NoughtsAndCrosses {
 
         return configuration;
     }
-
-    public static boolean checkForWinner(Player player, State state) {
-
-        Symbol lastPlaced = player.symbol;
-
-        // Column win
-        int column = state.lastY;
-        int rowCounter = 0;
-        for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
-            if (state.board[j][column].getContents() == lastPlaced) {
-                rowCounter ++;
-            }
-        }
-
-        if (rowCounter == NoughtsAndCrosses.DIMENSION)
-            return true;
-
-        // Row win
-        int row = state.lastX;
-        int columnCounter = 0;
-        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
-            if (state.board[row][i].getContents() == lastPlaced) {
-                columnCounter ++;
-            }
-        }
-
-        if (columnCounter == NoughtsAndCrosses.DIMENSION)
-            return true;
-
-        // Diagonal win
-        if (state.lastX == state.lastY) {
-            int diagCounter = 0;
-
-            for (int ij = 0; ij < NoughtsAndCrosses.DIMENSION; ij++) {
-                if (state.board[ij][ij].getContents() == lastPlaced)
-                    diagCounter ++;
-            }
-
-            if (diagCounter == NoughtsAndCrosses.DIMENSION)
-                return true;
-        }
-
-        return false;
-    }
-
-
-
 }
