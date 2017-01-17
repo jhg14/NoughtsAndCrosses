@@ -3,6 +3,7 @@
  */
 public abstract class Player {
 
+    // The players given symbol
     protected Symbol symbol;
 
     public abstract State play(State state);

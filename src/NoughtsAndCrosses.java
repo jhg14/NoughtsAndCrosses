@@ -15,9 +15,11 @@ public class NoughtsAndCrosses {
         // Initialise first state
         State currentState = new State();
 
+        // Main loop
         boolean winner = false;
         while (!winner) {
 
+            // Allow each player to play()
             for (Player player : players) {
 
                 System.out.println(currentState);
@@ -40,6 +42,8 @@ public class NoughtsAndCrosses {
         }
     }
 
+
+    // Allow the user to choose the number of human/computer players
     public static Player[] getPlayerConfiguration() {
 
         Player[] configuration = new Player[NUMBER_OF_PLAYERS];

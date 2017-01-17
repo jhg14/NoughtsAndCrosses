@@ -35,12 +35,8 @@ public class HumanPlayer extends Player {
 
                 }
             }
-
             System.out.println("Please enter a valid location");
-
         }
-
         return null;
-
     }
 }
