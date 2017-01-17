@@ -48,58 +48,25 @@ public class UnbeatablePlayer extends Player {
 
     }
 
+    /*
+        If the current state is a win condition, return 1,
+        If it is a lose condition, return -1
+        If it is a draw condition, return 0
+        If the game is not over, run minimax on all possible moves
+    */
     public int minimax(State state, Symbol toPlace) {
-
-        /*
-
-            If the current state is a win condition, return 1,
-            If it is a lose condition, return -1
-            If it is a draw condition, return 0
-            If the game is not over, run minimax on all possible moves
-
-         */
 
         Symbol lastPlaced = toPlace.getOpponent();
 
-        // Column win
-        int column = state.lastY;
-        int rowCounter = 0;
-        for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
-            if (state.board[j][column].getContents() == lastPlaced) {
-                rowCounter ++;
-            }
-        }
-        if (rowCounter == NoughtsAndCrosses.DIMENSION)
+        // If the last move caused a win condition,
+        // return 1 if it was this player's,
+        // else return -1 if it was the opponent
+        if (state.checkForWinner(lastPlaced))
             return lastPlaced == symbol ? 1 : -1;
-
-        // Row win
-        int row = state.lastX;
-        int columnCounter = 0;
-        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
-            if (state.board[row][i].getContents() == lastPlaced) {
-                columnCounter ++;
-            }
-        }
-        if (columnCounter == NoughtsAndCrosses.DIMENSION)
-            return lastPlaced == symbol ? 1 : -1;
-
-        // Diagonal win
-        if (state.lastX == state.lastY) {
-            int diagCounter = 0;
-
-            for (int ij = 0; ij < NoughtsAndCrosses.DIMENSION; ij++) {
-                if (state.board[ij][ij].getContents() == lastPlaced)
-                    diagCounter ++;
-            }
-
-            if (diagCounter == NoughtsAndCrosses.DIMENSION)
-                return lastPlaced == symbol ? 1 : -1;
-        }
 
         // Draw
         if (state.boardFilled())
             return 0;
-
 
         // Create a list of all possible next states
         List<State> possibleMoves = new ArrayList<>();
@@ -133,7 +100,6 @@ public class UnbeatablePlayer extends Player {
         // otherwise minimise the opponent's score
         return toPlace == symbol ? scores.get(getMaxIndex(scores)) : scores.get(getMinIndex(scores));
     }
-
 
     // Utility function: returns the index of the first maximum element in a list
     private int getMaxIndex(List<Integer> list) {
