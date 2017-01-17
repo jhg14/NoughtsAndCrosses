@@ -12,7 +12,6 @@ public class State {
 
     public final Integer lastX;
     public final Integer lastY;
-    //public final Symbol lastSymbol;
 
     // Initialise a fresh state in which the board is empty
     public State() {
@@ -31,6 +30,7 @@ public class State {
 
     // Create a state from a pre-made board
     // Must specify what the last moves were
+    // For testing purposes
     public State(Cell[][] board, int lastX, int lastY) {
         this.board = new Cell[NoughtsAndCrosses.DIMENSION][NoughtsAndCrosses.DIMENSION];
 
@@ -104,8 +104,8 @@ public class State {
         // Column win
         int column = lastY;
         int rowCounter = 0;
-        for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
-            if (board[j][column].getContents() == symbol) {
+        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+            if (board[i][column].getContents() == symbol) {
                 rowCounter ++;
             }
         }
@@ -116,8 +116,8 @@ public class State {
         // Row win
         int row = lastX;
         int columnCounter = 0;
-        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
-            if (board[row][i].getContents() == symbol) {
+        for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
+            if (board[row][j].getContents() == symbol) {
                 columnCounter ++;
             }
         }
@@ -125,7 +125,7 @@ public class State {
         if (columnCounter == NoughtsAndCrosses.DIMENSION)
             return true;
 
-        // Diagonal win
+        // L - R Diagonal win
         if (lastX == lastY) {
             int diagCounter = 0;
 
@@ -138,8 +138,21 @@ public class State {
                 return true;
         }
 
-        return false;
+        // R - L Diagonal win
+        if (lastX + lastY == NoughtsAndCrosses.DIMENSION - 1) {
+            int diagCounter = 0;
 
+            for (int i = NoughtsAndCrosses.DIMENSION - 1; i >= 0; i--) {
+                if (board[i][NoughtsAndCrosses.DIMENSION - 1 - i].getContents() == symbol) {
+                    diagCounter++;
+                }
+            }
+
+            if (diagCounter == NoughtsAndCrosses.DIMENSION)
+                return true;
+        }
+
+        return false;
     }
 
     @Override

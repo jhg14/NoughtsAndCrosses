@@ -6,27 +6,20 @@ import java.util.List;
  */
 public class UnbeatablePlayer extends Player {
 
-    // This is the symbol that will be used
-    // to determine whether a -1 or 1 should
-    // be returned from the Minimax function in
-    // State
-
     public UnbeatablePlayer(Symbol symbol) {
         this.symbol = symbol;
     }
 
+    /*
+        Compile a list of possible moves, and apply minimax to each of them
+        to discover their respective scores.
+        For the first call, we know that we want to chose the highest scoring
+        possible move.
+        Requires first step to be done here so that we have access to the state
+        with the highest score as opposed to just its score
+    */
     @Override
     public State play(State state) {
-
-        // Return the same state if game is over,
-        // else return next move as new state
-
-        /*
-            Compile a list of possible moves, and apply minimax to each of them
-            to discover their respective scores.
-            For the first call, we know that we want to chose the highest scoring
-            possible move.
-         */
 
         List<State> possibleMoves = new ArrayList<>();
         List<Integer> scores = new ArrayList<>();
@@ -45,7 +38,6 @@ public class UnbeatablePlayer extends Player {
         }
 
         return possibleMoves.get(getMaxIndex(scores));
-
     }
 
     /*
