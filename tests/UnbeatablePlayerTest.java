@@ -35,6 +35,12 @@ public class UnbeatablePlayerTest {
     };
     State endState3 = new State(endBoard3, 1, 2);
 
+    Cell[][] testBoard4 = {
+            { new Cell(Symbol.O), new Cell(Symbol.O),  new Cell()},
+            { new Cell(), new Cell(Symbol.X), new Cell()},
+            { new Cell(Symbol.X), new Cell(), new Cell()}
+    };
+    State testState4 = new State(testBoard4, 2, 0);
 
     // This test seemingly fails for no reason - the output for 'is' and 'was' are identical
     @Test
@@ -43,7 +49,6 @@ public class UnbeatablePlayerTest {
         UnbeatablePlayer player = new UnbeatablePlayer(Symbol.X);
 
         assertThat(player.play(testState3), is(endState3));
-
 
     }
 
@@ -62,6 +67,15 @@ public class UnbeatablePlayerTest {
         UnbeatablePlayer player = new UnbeatablePlayer(Symbol.X);
 
         assertThat(player.minimax(testState2, Symbol.X), is(1));
+    }
+
+    @Test
+    public void testMinimaxLtoRDiagonal() throws Exception {
+
+        UnbeatablePlayer player = new UnbeatablePlayer(Symbol.O);
+
+        assertThat(player.minimax(testState4, Symbol.X), is(-1));
+
     }
 
 }

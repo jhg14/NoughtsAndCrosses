@@ -142,7 +142,7 @@ public class State {
         if (lastX + lastY == NoughtsAndCrosses.DIMENSION - 1) {
             int diagCounter = 0;
 
-            for (int i = NoughtsAndCrosses.DIMENSION - 1; i >= 0; i--) {
+            for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
                 if (board[i][NoughtsAndCrosses.DIMENSION - 1 - i].getContents() == symbol) {
                     diagCounter++;
                 }

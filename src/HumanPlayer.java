@@ -32,7 +32,6 @@ public class HumanPlayer extends Player {
 
                     State newState = new State(state, symbol, coord.i, coord.j);
                     return newState;
-
                 }
             }
             System.out.println("Please enter a valid location");

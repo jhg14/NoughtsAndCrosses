@@ -56,12 +56,36 @@ public class NoughtsAndCrosses {
             humans = scanner.nextInt();
         } while (!(humans >= 0 && humans <= NUMBER_OF_PLAYERS));
 
-        for (int i = 0; i < humans; i++) {
-            configuration[i] = new HumanPlayer(symbols[i], new Scanner(System.in));
+        boolean humanFirst = true;
+        if (humans < NUMBER_OF_PLAYERS && humans > 0) {
+            System.out.println("Would you like to go first? (y/n)");
+
+            String first;
+
+            while (!(first = scanner.next()).equals("y") && !first.equals("n")) {
+                System.out.println("Please enter a valid character");
+            }
+
+            humanFirst = first.equals("y");
         }
 
-        for (int i = humans; i < NUMBER_OF_PLAYERS; i++) {
-            configuration[i] = new UnbeatablePlayer(symbols[i]);
+        if (humanFirst) {
+            for (int i = 0; i < humans; i++) {
+                configuration[i] = new HumanPlayer(symbols[i], new Scanner(System.in));
+            }
+
+            for (int i = humans; i < NUMBER_OF_PLAYERS; i++) {
+                configuration[i] = new UnbeatablePlayer(symbols[i]);
+            }
+
+        } else {
+            for (int i = 0; i < NUMBER_OF_PLAYERS - humans; i++) {
+                configuration[i] = new UnbeatablePlayer(symbols[i]);
+            }
+
+            for (int i = NUMBER_OF_PLAYERS - humans; i < NUMBER_OF_PLAYERS; i++) {
+                configuration[i] = new HumanPlayer(symbols[i], new Scanner(System.in));
+            }
         }
 
         return configuration;
