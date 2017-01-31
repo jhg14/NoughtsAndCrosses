@@ -21,9 +21,11 @@ public class HumanPlayer extends Player {
 
         while (!valid) {
 
-            System.out.println("Please enter an x co-ordinate followed by a y co-ordinate");
+            System.out.println("Please enter your next move\n");
 
-            Coordinate coord = new Coordinate(input.nextInt(), input.nextInt());
+            System.out.println("1 2 3\n4 5 6\n7 8 9\n\n");
+
+            Coordinate coord = parseInput(input.nextInt());
 
             List<Coordinate> emptyTiles = state.getEmptyTiles();
 
@@ -38,4 +40,11 @@ public class HumanPlayer extends Player {
         }
         return null;
     }
+
+    private Coordinate parseInput(int tile) {
+
+        return new Coordinate((tile - 1) / 3 , (tile - 1) % 3);
+
+    }
+
 }
