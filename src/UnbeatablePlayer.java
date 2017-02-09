@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -6,8 +7,12 @@ import java.util.List;
  */
 public class UnbeatablePlayer extends Player {
 
+    private HashMap<State, Integer> cache;
+
     public UnbeatablePlayer(Symbol symbol) {
+
         this.symbol = symbol;
+        this.cache = new HashMap<>();
     }
 
     /*
@@ -78,12 +83,17 @@ public class UnbeatablePlayer extends Player {
         // is returned
         // Optimised to short circuit
         for (State move: possibleMoves) {
-            int value = minimax(move, lastPlaced);
-
-            if (value == 1 && toPlace == symbol) {
-                return 1;
-            } else if (value == -1 && toPlace == symbol.getOpponent()) {
-                return -1;
+            int value;
+            if (!cache.containsKey(move)) {
+                value = minimax(move, lastPlaced);
+                cache.put(move, value);
+                if (value == 1 && toPlace == symbol) {
+                    return 1;
+                } else if (value == -1 && toPlace == symbol.getOpponent()) {
+                    return -1;
+                }
+            } else {
+                value = cache.get(move);
             }
             scores.add(value);
         }

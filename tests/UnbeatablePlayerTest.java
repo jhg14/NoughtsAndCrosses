@@ -1,4 +1,5 @@
 import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.is;
 
 import static org.junit.Assert.*;
@@ -6,7 +7,9 @@ import static org.junit.Assert.*;
 /**
  * Created by JHGWhite on 16/01/2017.
  */
+
 public class UnbeatablePlayerTest {
+
 
     Cell[][] testBoard1 = {
             { new Cell(Symbol.O), new Cell(Symbol.O),  new Cell()},
