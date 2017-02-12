@@ -177,15 +177,6 @@ public class State {
         if (o == null || getClass() != o.getClass()) return false;
 
         State state = (State) o;
-
-//        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
-//            for (int j = 0; j < NoughtsAndCrosses.DIMENSION; i++) {
-//                if (!board[i][j].equals(state.board[i][j])) {
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
         
         return Arrays.deepEquals(board, state.board);
 
