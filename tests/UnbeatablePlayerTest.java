@@ -44,7 +44,16 @@ public class UnbeatablePlayerTest {
             { new Cell(Symbol.X), new Cell(), new Cell()}
     };
     State testState4 = new State(testBoard4, 2, 0);
-    
+
+    // This test seemingly fails for no reason - the output for 'is' and 'was' are identical
+    @Test
+    public void testPlayInstantWin() throws Exception {
+
+        UnbeatablePlayer player = new UnbeatablePlayer(Symbol.X);
+
+        assertThat(player.play(testState3), is(endState3));
+
+    }
 
     @Test
     public void testMinimaxInstantWin() throws Exception {
