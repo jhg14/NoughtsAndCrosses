@@ -31,7 +31,7 @@ public class State {
     // Create a state from a pre-made board
     // Must specify what the last moves were
     // For testing purposes
-    public State(Cell[][] board, int lastX, int lastY) {
+    public State(Cell[][] board, Integer lastX, Integer lastY) {
         this.board = new Cell[NoughtsAndCrosses.DIMENSION][NoughtsAndCrosses.DIMENSION];
 
         for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
@@ -178,6 +178,15 @@ public class State {
 
         State state = (State) o;
 
+//        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+//            for (int j = 0; j < NoughtsAndCrosses.DIMENSION; i++) {
+//                if (!board[i][j].equals(state.board[i][j])) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+        
         return Arrays.deepEquals(board, state.board);
 
     }

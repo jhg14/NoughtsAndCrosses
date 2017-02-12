@@ -87,12 +87,16 @@ public class UnbeatablePlayer extends Player {
             if (!cache.containsKey(move)) {
                 value = minimax(move, lastPlaced);
                 cache.put(move, value);
+                System.out.println(cache.size());
                 if (value == 1 && toPlace == symbol) {
+                    //System.out.println("Short Circuit max");
                     return 1;
                 } else if (value == -1 && toPlace == symbol.getOpponent()) {
+                    //System.out.println("Short Circuit min");
                     return -1;
                 }
             } else {
+                //System.out.println("Drawing from cache");
                 value = cache.get(move);
             }
             scores.add(value);

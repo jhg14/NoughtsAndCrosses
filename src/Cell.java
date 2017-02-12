@@ -29,6 +29,21 @@ public class Cell {
         return cell;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cell cell = (Cell) o;
+
+        return contents == cell.contents;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return contents.hashCode();
+    }
 }
 
 enum Symbol {

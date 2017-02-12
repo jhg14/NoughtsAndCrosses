@@ -43,7 +43,7 @@ public class HumanPlayer extends Player {
 
     private Coordinate parseInput(int tile) {
 
-        return new Coordinate((tile - 1) / 3 , (tile - 1) % 3);
+        return new Coordinate((tile - 1) / NoughtsAndCrosses.DIMENSION , (tile - 1) % NoughtsAndCrosses.DIMENSION);
 
     }
 
