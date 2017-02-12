@@ -10,8 +10,8 @@ public class State {
 
     public final Cell[][] board;
 
-    public final Integer lastX;
-    public final Integer lastY;
+    public Integer lastX;
+    public Integer lastY;
 
     // Initialise a fresh state in which the board is empty
     public State() {
@@ -61,6 +61,20 @@ public class State {
         lastX = i;
         lastY = j;
         //lastSymbol = turn;
+    }
+
+    public Coordinate makeMove(Symbol symbol, int i, int j) {
+        board[i][j].setContents(symbol);
+        Coordinate c = new Coordinate(lastX.intValue(), lastY.intValue());
+        lastX = i;
+        lastY = j;
+        return c;
+    }
+
+    public void revokeMove(int i, int j, Coordinate prev) {
+        board[i][j].resetContents();
+        lastX = prev.i;
+        lastY = prev.j;
     }
 
     public int emptyTileCount() {

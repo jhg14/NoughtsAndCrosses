@@ -19,6 +19,10 @@ public class Cell {
             this.contents = contents;
     }
 
+    public void resetContents() {
+        this.contents = Symbol.EMPTY;
+    }
+
     public Symbol getContents() {
         return contents;
     }
