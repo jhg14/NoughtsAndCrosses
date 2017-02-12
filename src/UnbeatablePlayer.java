@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,92 +46,26 @@ public class UnbeatablePlayer extends Player {
         return possibleMoves.get(getMaxIndex(scores));
     }
 
+
     /*
         If the current state is a win condition, return 1,
         If it is a lose condition, return -1
         If it is a draw condition, return 0
         If the game is not over, run minimax on all possible moves
     */
-    public int minimax(State state, Symbol toPlace) {
-
-        Symbol lastPlaced = toPlace.getOpponent();
-
-        // If the last move caused a win condition,
-        // return 1 if it was this player's,
-        // else return -1 if it was the opponent
-        if (state.checkForWinner(lastPlaced))
-            return lastPlaced == symbol ? 1 : -1;
-
-        // Draw
-        if (state.boardFilled())
-            return 0;
-
-        // Create a list of all possible next states
-        List<State> possibleMoves = new ArrayList<>();
-
-        // Create a list of possible tiles for a symbol to be placed in
-        List<Coordinate> possibleSymbolLocations = state.getEmptyTiles();
-
-        // Create a list of scores corresponding to each move
+    public int minimax(State state, Symbol turn) {
+        if (state.checkForWinner(symbol)) return state.emptyTileCount();
+        if (state.checkForWinner(symbol.getOpponent())) return -state.emptyTileCount();
+        if (state.emptyTileCount() == 0) return 0;
         List<Integer> scores = new ArrayList<>();
-
-        // Populate the state list with new states for each available tile
-        for (Coordinate coordinate : possibleSymbolLocations) {
-
-            //possibleMoves.add(new State(state, toPlace, coordinate.i, coordinate.j));
-            int value;
-            int i = coordinate.i;
-            int j = coordinate.j;
-            state.makeMove(toPlace, i, j);
-
-            if (cache.containsKey(state)) {
-                value = cache.get(state);
-            } else {
-                value = minimax(state, lastPlaced);
-                cache.put(new State(state, lastPlaced, i, j), value);
-            }
-
-            scores.add(value);
-            state.revokeMove(i, j);
-
-            if (value == 1 && toPlace == symbol) {
-                //System.out.println("Short Circuit max");
-                return 1;
-            } else if (value == -1 && toPlace == symbol.getOpponent()) {
-                //System.out.println("Short Circuit min");
-                return -1;
-            }
-
+        for (Coordinate c : state.getEmptyTiles()) {
+            state.makeMove(turn, c.i, c.j);
+            scores.add(minimax(state, turn.getOpponent()));
+            state.revokeMove(c.i, c.j);
         }
-
-        // Run minimax on each possible next state
-        // Depending on whose turn it is, the minimum or maximum score
-        // is returned
-        // Optimised to short circuit
-//        for (State move: possibleMoves) {
-//            int value;
-//            if (!cache.containsKey(move)) {
-//                value = minimax(move, lastPlaced);
-//                cache.put(move, value);
-//                System.out.println(cache.size());
-//                if (value == 1 && toPlace == symbol) {
-//                    //System.out.println("Short Circuit max");
-//                    return 1;
-//                } else if (value == -1 && toPlace == symbol.getOpponent()) {
-//                    //System.out.println("Short Circuit min");
-//                    return -1;
-//                }
-//            } else {
-//                //System.out.println("Drawing from cache");
-//                value = cache.get(move);
-//            }
-//            scores.add(value);
-//        }
-
-        // If the next symbol to be placed was the player's symbol, return the max score,
-        // otherwise minimise the opponent's score
-        return toPlace == symbol ? scores.get(getMaxIndex(scores)) : scores.get(getMinIndex(scores));
+        return turn == symbol ? Collections.max(scores) : Collections.min(scores);
     }
+
 
     // Utility function: returns the index of the first maximum element in a list
     private int getMaxIndex(List<Integer> list) {
