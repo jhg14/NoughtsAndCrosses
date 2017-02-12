@@ -10,8 +10,11 @@ public class NoughtsAndCrosses {
 
     public static void main(String[] args) {
 
-        Player[] players = getPlayerConfiguration();
+        executeGame(getPlayerConfiguration());
 
+    }
+
+    public static void executeGame(Player[] players) {
         // Initialise first state
         State currentState = new State();
 
@@ -41,7 +44,6 @@ public class NoughtsAndCrosses {
             }
         }
     }
-
 
     // Allow the user to choose the number of human/computer players
     public static Player[] getPlayerConfiguration() {
