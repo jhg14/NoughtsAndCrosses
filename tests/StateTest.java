@@ -47,7 +47,7 @@ public class StateTest {
         assertThat(testState1, is(testState2));
 
     }
-    
+
     Cell[][] winCondition1 = {
             { new Cell(Symbol.X), new Cell(),  new Cell()},
             { new Cell(), new Cell(Symbol.X), new Cell()},

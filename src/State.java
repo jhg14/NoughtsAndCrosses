@@ -95,58 +95,66 @@ public class State {
     }
 
     public boolean checkForWinner(Symbol symbol) {
+        for (int x = 0; x < NoughtsAndCrosses.DIMENSION; x++) {
 
+            for (int y = 0; y < NoughtsAndCrosses.DIMENSION; y++) {
 
+                if (board[x][y].getContents() == symbol) {
 
-        // Column win
-        int column = lastY;
-        int rowCounter = 0;
-        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
-            if (board[i][column].getContents() == symbol) {
-                rowCounter ++;
-            }
-        }
+                    // Column win
+                    int column = y;
+                    int rowCounter = 0;
+                    for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+                        if (board[i][column].getContents() == symbol) {
+                            rowCounter++;
+                        }
+                    }
 
-        if (rowCounter == NoughtsAndCrosses.DIMENSION)
-            return true;
+                    if (rowCounter == NoughtsAndCrosses.DIMENSION)
+                        return true;
 
-        // Row win
-        int row = lastX;
-        int columnCounter = 0;
-        for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
-            if (board[row][j].getContents() == symbol) {
-                columnCounter ++;
-            }
-        }
+                    // Row win
+                    int row = x;
+                    int columnCounter = 0;
+                    for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
+                        if (board[row][j].getContents() == symbol) {
+                            columnCounter++;
+                        }
+                    }
 
-        if (columnCounter == NoughtsAndCrosses.DIMENSION)
-            return true;
+                    if (columnCounter == NoughtsAndCrosses.DIMENSION)
+                        return true;
 
-        // L - R Diagonal win
-        if (lastX == lastY) {
-            int diagCounter = 0;
+                    // L - R Diagonal win
+                    if (x == y) {
+                        int diagCounter = 0;
 
-            for (int ij = 0; ij < NoughtsAndCrosses.DIMENSION; ij++) {
-                if (board[ij][ij].getContents() == symbol)
-                    diagCounter ++;
-            }
+                        for (int ij = 0; ij < NoughtsAndCrosses.DIMENSION; ij++) {
+                            if (board[ij][ij].getContents() == symbol)
+                                diagCounter++;
+                        }
 
-            if (diagCounter == NoughtsAndCrosses.DIMENSION)
-                return true;
-        }
+                        if (diagCounter == NoughtsAndCrosses.DIMENSION)
+                            return true;
+                    }
 
-        // R - L Diagonal win
-        if (lastX + lastY == NoughtsAndCrosses.DIMENSION - 1) {
-            int diagCounter = 0;
+                    // R - L Diagonal win
+                    if (x + y == NoughtsAndCrosses.DIMENSION - 1) {
+                        int diagCounter = 0;
 
-            for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
-                if (board[i][NoughtsAndCrosses.DIMENSION - 1 - i].getContents() == symbol) {
-                    diagCounter++;
+                        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+                            if (board[i][NoughtsAndCrosses.DIMENSION - 1 - i].getContents() == symbol) {
+                                diagCounter++;
+                            }
+                        }
+
+                        if (diagCounter == NoughtsAndCrosses.DIMENSION)
+                            return true;
+                    }
+
                 }
             }
 
-            if (diagCounter == NoughtsAndCrosses.DIMENSION)
-                return true;
         }
 
         return false;

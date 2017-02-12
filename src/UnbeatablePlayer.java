@@ -81,7 +81,7 @@ public class UnbeatablePlayer extends Player {
             int value;
             int i = coordinate.i;
             int j = coordinate.j;
-            Coordinate prevLast = state.makeMove(toPlace, i, j);
+            state.makeMove(toPlace, i, j);
 
             if (cache.containsKey(state)) {
                 value = cache.get(state);
@@ -91,7 +91,7 @@ public class UnbeatablePlayer extends Player {
             }
 
             scores.add(value);
-            state.revokeMove(i, j, prevLast);
+            state.revokeMove(i, j);
 
             if (value == 1 && toPlace == symbol) {
                 //System.out.println("Short Circuit max");
