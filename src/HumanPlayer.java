@@ -23,7 +23,17 @@ public class HumanPlayer extends Player {
 
             System.out.println("Please enter your next move\n");
 
-            System.out.println("1 2 3\n4 5 6\n7 8 9\n\n");
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+                for (int j = 1; j <= NoughtsAndCrosses.DIMENSION; j++) {
+                    sb.append(i*NoughtsAndCrosses.DIMENSION + j);
+                    sb.append(" ");
+                }
+                sb.append("\n");
+            }
+            sb.append("\n");
+
+            System.out.println(sb);
 
             Coordinate coord = parseInput(input.nextInt());
 
