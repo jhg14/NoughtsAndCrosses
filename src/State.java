@@ -189,7 +189,20 @@ public class State {
 
     @Override
     public int hashCode() {
-        return Arrays.deepHashCode(board);
+        int hash = 0;
+        for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
+            for (int j = 0; j < NoughtsAndCrosses.DIMENSION; j++) {
+                hash *= 3;
+
+                Symbol content = board[i][j].getContents();
+                if (content == Symbol.X)
+                    hash += 1;
+                else if (content == Symbol.O)
+                    hash += 2;
+
+            }
+        }
+        return hash;
     }
 
 
