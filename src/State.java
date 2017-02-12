@@ -24,7 +24,7 @@ public class State {
     // Create a state from a pre-made board
     // Must specify what the last moves were
     // For testing purposes
-    public State(Cell[][] board, Integer lastX, Integer lastY) {
+    public State(Cell[][] board) {
         this.board = new Cell[NoughtsAndCrosses.DIMENSION][NoughtsAndCrosses.DIMENSION];
 
         for (int i = 0; i < NoughtsAndCrosses.DIMENSION; i++) {
@@ -32,22 +32,6 @@ public class State {
                 this.board[i][j] = board[i][j].copy();
             }
         }
-    }
-
-    // Initialise a state from a previous state with one alteration
-    public State(State prev, Symbol turn, int i, int j) {
-        //Cell[][] temp = prev.board.clone();
-
-        Cell[][] temp = new Cell[NoughtsAndCrosses.DIMENSION][NoughtsAndCrosses.DIMENSION];
-
-        for (int k = 0; k < NoughtsAndCrosses.DIMENSION; k++) {
-            for (int l = 0; l < NoughtsAndCrosses.DIMENSION; l++) {
-                temp[k][l] = prev.board[k][l].copy();
-            }
-        }
-
-        temp[i][j].setContents(turn);
-        board = temp;
     }
 
     public void makeMove(Symbol symbol, int i, int j) {
@@ -61,9 +45,9 @@ public class State {
     public int emptyTileCount() {
         int emptyTiles = 0;
         for (Cell[] column : board) {
-            for (Cell tile: column) {
+            for (Cell tile : column) {
                 if (tile.getContents() == Symbol.EMPTY) {
-                    emptyTiles ++;
+                    emptyTiles++;
                 }
             }
         }
@@ -166,7 +150,7 @@ public class State {
         StringBuilder builder = new StringBuilder();
 
         for (Cell[] column : board) {
-            for (Cell cell: column) {
+            for (Cell cell : column) {
                 Symbol contents = cell.getContents();
                 builder.append(contents == Symbol.EMPTY ? "_" : contents);
                 builder.append(" ");
@@ -182,7 +166,7 @@ public class State {
         if (o == null || getClass() != o.getClass()) return false;
 
         State state = (State) o;
-        
+
         return Arrays.deepEquals(board, state.board);
 
     }
@@ -204,6 +188,4 @@ public class State {
         }
         return hash;
     }
-
-
 }

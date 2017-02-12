@@ -31,9 +31,8 @@ public class HumanPlayer extends Player {
 
             for (Coordinate emptyTile : emptyTiles) {
                 if (emptyTile.equals(coord)) {
-
-                    State newState = new State(state, symbol, coord.i, coord.j);
-                    return newState;
+                    state.makeMove(symbol, coord.i, coord.j);
+                    return state;
                 }
             }
             System.out.println("Please enter a valid location");

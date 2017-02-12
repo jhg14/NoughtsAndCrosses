@@ -16,34 +16,34 @@ public class UnbeatablePlayerTest {
             { new Cell(Symbol.X), new Cell(Symbol.X), new Cell(Symbol.X)},
             { new Cell(Symbol.O), new Cell(), new Cell()}
     };
-    State testState1 = new State(testBoard1, 1, 2);
+    State testState1 = new State(testBoard1);
 
     Cell[][] testBoard2 = {
             { new Cell(Symbol.O), new Cell(Symbol.O),  new Cell(Symbol.X)},
             { new Cell(Symbol.X), new Cell(Symbol.X), new Cell()},
             { new Cell(Symbol.O), new Cell(), new Cell()}
     };
-    State testState2 = new State(testBoard2, 0, 2);
+    State testState2 = new State(testBoard2);
 
     Cell[][] testBoard3 = {
             { new Cell(Symbol.O), new Cell(Symbol.O),  new Cell()},
             { new Cell(Symbol.X), new Cell(Symbol.X), new Cell()},
             { new Cell(), new Cell(), new Cell()}
     };
-    State testState3 = new State(testBoard3, 0, 1);
+    State testState3 = new State(testBoard3);
     Cell[][] endBoard3 = {
             { new Cell(Symbol.O), new Cell(Symbol.O),  new Cell()},
             { new Cell(Symbol.X), new Cell(Symbol.X), new Cell(Symbol.X)},
             { new Cell(), new Cell(), new Cell()}
     };
-    State endState3 = new State(endBoard3, 1, 2);
+    State endState3 = new State(endBoard3);
 
     Cell[][] testBoard4 = {
             { new Cell(Symbol.O), new Cell(Symbol.O),  new Cell()},
             { new Cell(), new Cell(Symbol.X), new Cell()},
             { new Cell(Symbol.X), new Cell(), new Cell()}
     };
-    State testState4 = new State(testBoard4, 2, 0);
+    State testState4 = new State(testBoard4);
 
     // This test seemingly fails for no reason - the output for 'is' and 'was' are identical
     @Test

@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by JHGWhite on 11/01/2017.
@@ -27,20 +24,23 @@ public class UnbeatablePlayer extends Player {
     @Override
     public State play(State state) {
 
-        List<State> possibleMoves = new ArrayList<>();
         List<Integer> scores = new ArrayList<>();
 
         List<Coordinate> possibleSymbolLocations = state.getEmptyTiles();
 
-        possibleSymbolLocations.forEach(coordinate ->
-            possibleMoves.add(new State(state, symbol, coordinate.i, coordinate.j)));
+        Map<Coordinate, Integer> moves = new HashMap<>();
 
-        for (State move: possibleMoves) {
-            int value = minimax(move, symbol.getOpponent());
-            scores.add(value);
+        for (Coordinate coordinate : possibleSymbolLocations) {
+            state.makeMove(symbol, coordinate.i, coordinate.j);
+            int value = minimax(state, symbol);
+            moves.put(coordinate, value);
+            state.revokeMove(coordinate.i, coordinate.j);
         }
 
-        return possibleMoves.get(getMaxIndex(scores));
+        Coordinate best = Collections.max(moves.entrySet(), (entry1, entry2) ->
+                entry1.getValue() - entry2.getValue()).getKey();
+        state.makeMove(symbol, best.i, best.j);
+        return state;
     }
 
 

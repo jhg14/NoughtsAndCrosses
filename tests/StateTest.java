@@ -16,14 +16,14 @@ public class StateTest {
             { new Cell(), new Cell(), new Cell()},
             { new Cell(), new Cell(), new Cell()}
     };
-    State emptyState1 = new State(emptyBoard1, null, null);
+    State emptyState1 = new State(emptyBoard1);
 
     Cell[][] emptyBoard2 = {
             { new Cell(), new Cell(),  new Cell()},
             { new Cell(), new Cell(), new Cell()},
             { new Cell(), new Cell(), new Cell()}
     };
-    State emptyState2 = new State(emptyBoard2, null, null);
+    State emptyState2 = new State(emptyBoard2);
 
 
     Cell[][] testBoard1 = {
@@ -31,14 +31,14 @@ public class StateTest {
             { new Cell(), new Cell(Symbol.X), new Cell()},
             { new Cell(Symbol.X), new Cell(), new Cell()}
     };
-    State testState1 = new State(testBoard1, 0, 0);
+    State testState1 = new State(testBoard1);
 
     Cell[][] testBoard2 = {
             { new Cell(Symbol.O), new Cell(Symbol.O),  new Cell()},
             { new Cell(), new Cell(Symbol.X), new Cell()},
             { new Cell(Symbol.X), new Cell(), new Cell()}
     };
-    State testState2 = new State(testBoard2, 0, 1);
+    State testState2 = new State(testBoard2);
 
     @Test
     public void stateEqualsFunctionsCorrectly() throws Exception {
@@ -72,10 +72,10 @@ public class StateTest {
             { new Cell(), new Cell(Symbol.X), new Cell()}
     };
 
-    State winState1 = new State(winCondition1, 1, 1);
-    State winState2 = new State(winCondition2, 1, 1);
-    State winState3 = new State(winCondition3, 1, 1);
-    State winState4 = new State(winCondition4, 1, 1);
+    State winState1 = new State(winCondition1);
+    State winState2 = new State(winCondition2);
+    State winState3 = new State(winCondition3);
+    State winState4 = new State(winCondition4);
 
     @Test
     public void checkForWinFunctionsCorrectly() throws Exception {
