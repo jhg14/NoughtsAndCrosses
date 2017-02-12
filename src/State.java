@@ -10,9 +10,6 @@ public class State {
 
     public final Cell[][] board;
 
-    public Integer lastX;
-    public Integer lastY;
-
     // Initialise a fresh state in which the board is empty
     public State() {
         board = new Cell[NoughtsAndCrosses.DIMENSION][NoughtsAndCrosses.DIMENSION];
@@ -22,10 +19,6 @@ public class State {
                 board[i][j] = new Cell();
             }
         }
-
-        lastX = null;
-        lastY = null;
-        //lastSymbol = null;
     }
 
     // Create a state from a pre-made board
@@ -39,9 +32,6 @@ public class State {
                 this.board[i][j] = board[i][j].copy();
             }
         }
-
-        this.lastX = lastX;
-        this.lastY = lastY;
     }
 
     // Initialise a state from a previous state with one alteration
@@ -58,23 +48,14 @@ public class State {
 
         temp[i][j].setContents(turn);
         board = temp;
-        lastX = i;
-        lastY = j;
-        //lastSymbol = turn;
     }
 
-    public Coordinate makeMove(Symbol symbol, int i, int j) {
+    public void makeMove(Symbol symbol, int i, int j) {
         board[i][j].setContents(symbol);
-        Coordinate c = new Coordinate(lastX.intValue(), lastY.intValue());
-        lastX = i;
-        lastY = j;
-        return c;
     }
 
-    public void revokeMove(int i, int j, Coordinate prev) {
+    public void revokeMove(int i, int j) {
         board[i][j].resetContents();
-        lastX = prev.i;
-        lastY = prev.j;
     }
 
     public int emptyTileCount() {
@@ -114,6 +95,8 @@ public class State {
     }
 
     public boolean checkForWinner(Symbol symbol) {
+
+
 
         // Column win
         int column = lastY;

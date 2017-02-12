@@ -5,7 +5,7 @@ import java.util.Scanner;
  */
 public class NoughtsAndCrosses {
 
-    public static final int DIMENSION = 4;
+    public static final int DIMENSION = 3;
     public static final int NUMBER_OF_PLAYERS = 2;
 
     public static void main(String[] args) {
