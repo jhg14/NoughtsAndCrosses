@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class UnbeatablePlayer extends Player {
 
-    private HashMap<State, Integer> cache;
+    private HashMap<Integer, Integer> cache;
 
     public UnbeatablePlayer(Symbol symbol) {
 
@@ -37,9 +37,6 @@ public class UnbeatablePlayer extends Player {
 
         for (State move: possibleMoves) {
             int value = minimax(move, symbol.getOpponent());
-            if (value == 1) {
-                return move;
-            }
             scores.add(value);
         }
 
@@ -54,6 +51,7 @@ public class UnbeatablePlayer extends Player {
         If the game is not over, run minimax on all possible moves
     */
     public int minimax(State state, Symbol turn) {
+        if (cache.containsKey(state.hashCode())) return cache.get(state.hashCode());
         if (state.checkForWinner(symbol)) return state.emptyTileCount();
         if (state.checkForWinner(symbol.getOpponent())) return -state.emptyTileCount();
         if (state.emptyTileCount() == 0) return 0;
@@ -63,7 +61,10 @@ public class UnbeatablePlayer extends Player {
             scores.add(minimax(state, turn.getOpponent()));
             state.revokeMove(c.i, c.j);
         }
-        return turn == symbol ? Collections.max(scores) : Collections.min(scores);
+
+        int score = turn == symbol ? Collections.max(scores) : Collections.min(scores);
+        cache.put(state.hashCode(), score);
+        return score;
     }
 
 
