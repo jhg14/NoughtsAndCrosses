@@ -48,4 +48,43 @@ public class StateTest {
 
     }
 
+    Cell[][] winCondition1 = {
+            { new Cell(Symbol.X), new Cell(),  new Cell()},
+            { new Cell(), new Cell(Symbol.X), new Cell()},
+            { new Cell(), new Cell(), new Cell(Symbol.X)}
+    };
+
+    Cell[][] winCondition2 = {
+            { new Cell(), new Cell(),  new Cell(Symbol.X)},
+            { new Cell(), new Cell(Symbol.X), new Cell()},
+            { new Cell(Symbol.X), new Cell(), new Cell()}
+    };
+
+    Cell[][] winCondition3 = {
+            { new Cell(), new Cell(),  new Cell()},
+            { new Cell(Symbol.X), new Cell(Symbol.X), new Cell(Symbol.X)},
+            { new Cell(), new Cell(), new Cell()}
+    };
+
+    Cell[][] winCondition4 = {
+            { new Cell(), new Cell(Symbol.X),  new Cell()},
+            { new Cell(), new Cell(Symbol.X), new Cell()},
+            { new Cell(), new Cell(Symbol.X), new Cell()}
+    };
+
+    State winState1 = new State(winCondition1, 1, 1);
+    State winState2 = new State(winCondition2, 1, 1);
+    State winState3 = new State(winCondition3, 1, 1);
+    State winState4 = new State(winCondition4, 1, 1);
+
+    @Test
+    public void checkForWinFunctionsCorrectly() throws Exception {
+
+        assertThat(winState1.checkForWinner(Symbol.X), is(true));
+        assertThat(winState2.checkForWinner(Symbol.X), is(true));
+        assertThat(winState3.checkForWinner(Symbol.X), is(true));
+        assertThat(winState4.checkForWinner(Symbol.X), is(true));
+
+    }
+
 }
