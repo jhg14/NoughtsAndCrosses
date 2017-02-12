@@ -1,3 +1,5 @@
+import com.sun.istack.internal.NotNull;
+
 import java.util.*;
 
 /**
@@ -24,23 +26,22 @@ public class UnbeatablePlayer extends Player {
     @Override
     public State play(State state) {
 
+        List<Coordinate> possibleMoves = new ArrayList<>();
         List<Integer> scores = new ArrayList<>();
 
         List<Coordinate> possibleSymbolLocations = state.getEmptyTiles();
 
-        Map<Coordinate, Integer> moves = new HashMap<>();
-
-        for (Coordinate coordinate : possibleSymbolLocations) {
-            state.makeMove(symbol, coordinate.i, coordinate.j);
-            int value = minimax(state, symbol);
-            moves.put(coordinate, value);
-            state.revokeMove(coordinate.i, coordinate.j);
+        for (Coordinate c : possibleSymbolLocations) {
+            state.makeMove(symbol, c.i, c.j);
+            int value = minimax(state, symbol.getOpponent());
+            state.revokeMove(c.i, c.j);
+            scores.add(value);
         }
 
-        Coordinate best = Collections.max(moves.entrySet(), (entry1, entry2) ->
-                entry1.getValue() - entry2.getValue()).getKey();
+        Coordinate best = possibleSymbolLocations.get(getMaxIndex(scores));
         state.makeMove(symbol, best.i, best.j);
         return state;
+
     }
 
 
