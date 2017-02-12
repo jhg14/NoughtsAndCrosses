@@ -75,32 +75,57 @@ public class UnbeatablePlayer extends Player {
         List<Integer> scores = new ArrayList<>();
 
         // Populate the state list with new states for each available tile
-        possibleSymbolLocations.forEach(coordinate ->
-                possibleMoves.add(new State(state, toPlace, coordinate.i, coordinate.j)));
+        for (Coordinate coordinate : possibleSymbolLocations) {
+
+            //possibleMoves.add(new State(state, toPlace, coordinate.i, coordinate.j));
+            int value;
+            int i = coordinate.i;
+            int j = coordinate.j;
+            Coordinate prevLast = state.makeMove(toPlace, i, j);
+
+            if (cache.containsKey(state)) {
+                value = cache.get(state);
+            } else {
+                value = minimax(state, lastPlaced);
+                cache.put(new State(state, lastPlaced, i, j), value);
+            }
+
+            scores.add(value);
+            state.revokeMove(i, j, prevLast);
+
+            if (value == 1 && toPlace == symbol) {
+                //System.out.println("Short Circuit max");
+                return 1;
+            } else if (value == -1 && toPlace == symbol.getOpponent()) {
+                //System.out.println("Short Circuit min");
+                return -1;
+            }
+
+        }
 
         // Run minimax on each possible next state
         // Depending on whose turn it is, the minimum or maximum score
         // is returned
         // Optimised to short circuit
-        for (State move: possibleMoves) {
-            int value;
-            if (!cache.containsKey(move)) {
-                value = minimax(move, lastPlaced);
-                cache.put(move, value);
-                System.out.println(cache.size());
-                if (value == 1 && toPlace == symbol) {
-                    //System.out.println("Short Circuit max");
-                    return 1;
-                } else if (value == -1 && toPlace == symbol.getOpponent()) {
-                    //System.out.println("Short Circuit min");
-                    return -1;
-                }
-            } else {
-                //System.out.println("Drawing from cache");
-                value = cache.get(move);
-            }
-            scores.add(value);
-        }
+//        for (State move: possibleMoves) {
+//            int value;
+//            if (!cache.containsKey(move)) {
+//                value = minimax(move, lastPlaced);
+//                cache.put(move, value);
+//                System.out.println(cache.size());
+//                if (value == 1 && toPlace == symbol) {
+//                    //System.out.println("Short Circuit max");
+//                    return 1;
+//                } else if (value == -1 && toPlace == symbol.getOpponent()) {
+//                    //System.out.println("Short Circuit min");
+//                    return -1;
+//                }
+//            } else {
+//                //System.out.println("Drawing from cache");
+//                value = cache.get(move);
+//            }
+//            scores.add(value);
+//        }
 
         // If the next symbol to be placed was the player's symbol, return the max score,
         // otherwise minimise the opponent's score
